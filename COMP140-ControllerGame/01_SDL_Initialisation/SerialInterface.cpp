@@ -57,17 +57,16 @@ void SerialInterface::getPositions()
 {
 	if (connected)
 	{
-		mySerial->write("P");
+		mySerial->write("O");
 		
-		string result = mySerial->readline();
+		string result = mySerial->readline;
 
 		if (result.length() >= 9)
 		{
 			string sub1 = result.substr(0, 4);
-			pot1 = std::stoi(sub1);
-
-			string sub2 = result.substr(5, 9);
-			pot2 = std::stoi(sub2);
+			randomNumX = std::stoi(sub1);
+			string sub2 = result.substr(4, 4);
+			randomNumY = std::stoi(sub2);
 		}
 	}
 }
