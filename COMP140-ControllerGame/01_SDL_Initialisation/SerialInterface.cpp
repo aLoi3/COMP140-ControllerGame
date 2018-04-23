@@ -59,14 +59,13 @@ void SerialInterface::getPositions()
 	{
 		mySerial->write("O");
 		
-		string result = mySerial->readline;
+		string result = mySerial->readline();
 
-		if (result.length() >= 9)
+		if (result == "S")
 		{
-			string sub1 = result.substr(0, 4);
-			randomNumX = std::stoi(sub1);
-			string sub2 = result.substr(4, 4);
-			randomNumY = std::stoi(sub2);
+
+			std::cout << "I have found the right spot! \n";
+			std::cout << "Want to try again? A random number has already been selected! \n";
 		}
 	}
 }

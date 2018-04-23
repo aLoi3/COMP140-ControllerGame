@@ -1,5 +1,6 @@
 #pragma once
 #include "SDL.h"
+#include "Text.h"
 #include "SerialInterface.h"
 
 
@@ -22,6 +23,9 @@ private:
 	SDL_Renderer* mainRenderer;
 
 	bool isRunning;
+
+	Text greeting;
+	SDL_Rect textDestination;
 
 	SerialInterface* serialInterface;
 };

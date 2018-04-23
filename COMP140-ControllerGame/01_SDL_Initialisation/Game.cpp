@@ -5,12 +5,18 @@
 #include "Game.h"
 #include <iostream>
 
+
+
 const int SCREEN_WIDTH = 860;
 const int SCREEN_HEIGHT = 640;
 
 Game::Game()
 {
 	serialInterface = new SerialInterface();
+	textDestination.x = 0;
+	textDestination.y = 0;
+	textDestination.h = 100;
+	textDestination.w = 600;
 }
 
 Game::~Game()
@@ -36,7 +42,7 @@ bool Game::init(const char * title, int xpos, int ypos, int width, int height, i
 			// if renderer successful...
 			if (mainRenderer != 0) {
 				std::cout << "Renderer creation success \n";
-				SDL_SetRenderDrawColor(mainRenderer, 255, 255, 255, 255);
+				//SDL_SetRenderDrawColor(mainRenderer, 255, 255, 255, 255);
 			}
 			else {
 				std::cout << "renderer failed \n";
@@ -63,10 +69,20 @@ bool Game::init(const char * title, int xpos, int ypos, int width, int height, i
 void Game::render()
 {
 	// set background color
-	SDL_SetRenderDrawColor(mainRenderer, 255, 255, 255, 255);
+	//SDL_SetRenderDrawColor(mainRenderer, 255, 255, 255, 255);
+	//SDL_RenderDrawRect(greeting, );
 
 	// clear previous frame
 	SDL_RenderClear(mainRenderer);
+
+	greeting = Text(mainRenderer, "Text/Greetings.png", 72, 341);
+	//SDL_RenderClear(mainRenderer);
+	SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
+
+	//greeting = Text(mainRenderer, "Text/Greetings1.png", 72, 341);
+	
+	if (greeting.getTexture() != nullptr)
+		SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
 
 	// render new frame
 	SDL_RenderPresent(mainRenderer);
@@ -94,19 +110,63 @@ void Game::handleEvents()
 		case SDL_QUIT:
 			isRunning = false;
 			break;
-		case SDLK_l:
-			std::cout << "Welcome on board, Sir! (Press E to continue) \n";
-		case SDLK_e
-			std::cout << "I greet You at the very best game on the universe. (Press T to continue) \n";
-		case SDLK_t
-			std::cout << "Even thought there are much more games that are superior. (Press S to continue) \n";
-		case SDLK_s
-			std::cout << "And this is totally not a game, but, after all, this is something, right? (Press G to continue) \n";
-		case SDLK_g
-			std::cout << "Okay, I'll stop chatting with you, so you can enjoy this 'the very best game'! (Press O to finally start it) \n";
-		case SDLK_o
-			std::cout << "A random number has been chosen, \n";
-			std::cout << "Rotate the sphere to find the spot where all LEDs will turn GREEN. \n";
+
+			
+		case SDL_KEYDOWN:
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_l:
+				greeting = Text(mainRenderer, "Text/Greetings1.png", 72, 341);
+				SDL_RenderClear(mainRenderer);
+				SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
+				std::cout << "Welcome on board, Sir! (Press E to continue) \n";
+
+			}
+
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_e:
+				greeting = Text(mainRenderer, "Text/Greetings2.png", 72, 341);
+				SDL_RenderClear(mainRenderer);
+				SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
+				std::cout << "Welcome on board, Sir! (Press E to continue) \n";
+			}
+
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_t:
+				greeting = Text(mainRenderer, "Text/Greetings3.png", 72, 341);
+				SDL_RenderClear(mainRenderer);
+				SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
+				std::cout << "Welcome on board, Sir! (Press E to continue) \n";
+			}
+
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_s:
+				greeting = Text(mainRenderer, "Text/Greetings4.png", 72, 341);
+				SDL_RenderClear(mainRenderer);
+				SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
+				std::cout << "Welcome on board, Sir! (Press E to continue) \n";
+			}
+
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_g:
+				greeting = Text(mainRenderer, "Text/Greetings5.png", 72, 341);
+				SDL_RenderClear(mainRenderer);
+				SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
+				std::cout << "Welcome on board, Sir! (Press E to continue) \n";
+			}
+
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_o:
+				greeting = Text(mainRenderer, "Text/Greetings6.png", 72, 341);
+				SDL_RenderClear(mainRenderer);
+				SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
+				std::cout << "Welcome on board, Sir! (Press E to continue) \n";
+			}
 
 		default:
 			break;
@@ -128,98 +188,3 @@ void Game::clean()
 	SDL_DestroyRenderer(mainRenderer);
 	SDL_Quit();
 }
-
-
-/*int main(int argc, char ** argsv)
-{
-	SDL_Window * Window = nullptr;
-	SDL_Renderer * Renderer = nullptr;
-
-	bool isRunning = true;
-
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		std::cout << "Can't initialise SDL" << SDL_GetError() << std::endl;
-		return -1;
-	}
-
-	int imgFlag = IMG_INIT_PNG | IMG_INIT_JPG;
-	int imgFlagResults = IMG_Init(imgFlag);
-	if (imgFlagResults != imgFlag)
-	{
-		std::cout << "Can't load in PNG and JPG support, we can use BMPs" << IMG_GetError() << std::endl;
-
-	}
-
-	Window = SDL_CreateWindow("My First Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-
-	if (Window == nullptr)
-	{
-		std::cout << "Can't create window" << SDL_GetError() << std::endl;
-		SDL_Quit();
-		return -1;
-	}
-
-	Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED);
-
-	if (Renderer == nullptr)
-	{
-		std::cout << "Can't create renderer" << SDL_GetError() << std::endl;
-		SDL_DestroyWindow(Window);
-		SDL_Quit();
-		return -1;
-	}
-
-	//SDL_Surface * ImageSurface = IMG_Load("Assets\Images\SeaImage.jpg");
-	//SDL_Texture * SeaImageTexture = SDL_CreateTextureFromSurface(Renderer, ImageSurface);
-	//SDL_FreeSurface(ImageSurface);
-
-	SDL_Rect sourceRect;
-	sourceRect.x = 0;
-	sourceRect.y = 0;
-	sourceRect.w = 860;
-	sourceRect.h = 640;
-
-	SDL_Rect destinationRect;
-	destinationRect.x = 100;
-	destinationRect.y = 100;
-	destinationRect.w = 16;
-	destinationRect.h = 16;
-
-	SDL_Event currentEvent;
-
-	while (isRunning)
-	{
-		while (SDL_PollEvent(&currentEvent))
-		{
-			switch (currentEvent.type)
-			{
-				case SDL_QUIT:
-				{
-					isRunning = false;
-					break;
-				}
-			}
-		}
-
-		// Game stuff
-		SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
-		SDL_RenderClear(Renderer);
-
-		//SDL_RenderCopy(Renderer, SeaImageTexture, &sourceRect, &destinationRect);
-
-		SDL_RenderPresent(Renderer);
-
-	}
-
-	//SDL_DestroyTexture(SeaImageTexture);
-
-	SDL_DestroyRenderer(Renderer);
-
-	SDL_DestroyWindow(Window);
-	IMG_Quit();
-	SDL_Quit();
-
-    return 0;
-}*/
-
