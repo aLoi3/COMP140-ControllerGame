@@ -57,14 +57,11 @@ void SerialInterface::getPositions()
 {
 	if (connected)
 	{
-		mySerial->write("O");
-		
 		string result = mySerial->readline();
 
-		if (result == "S")
+		if (result == "W")
 		{
-
-			std::cout << "I have found the right spot! \n";
+			std::cout << "You have found the right spot! \n";
 			std::cout << "Want to try again? A random number has already been selected! \n";
 		}
 	}

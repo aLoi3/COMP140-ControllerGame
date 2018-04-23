@@ -16,7 +16,7 @@ Game::Game()
 	textDestination.x = 0;
 	textDestination.y = 0;
 	textDestination.h = 100;
-	textDestination.w = 600;
+	textDestination.w = 640;
 }
 
 Game::~Game()
@@ -63,6 +63,8 @@ bool Game::init(const char * title, int xpos, int ypos, int width, int height, i
 	isRunning = true;
 	std::cout << "SDL init success \n";
 
+	greeting = Text(mainRenderer, "Text/Greetings.png", 72, 341);
+
 	return true;
 }
 
@@ -70,16 +72,9 @@ void Game::render()
 {
 	// set background color
 	//SDL_SetRenderDrawColor(mainRenderer, 255, 255, 255, 255);
-	//SDL_RenderDrawRect(greeting, );
 
 	// clear previous frame
 	SDL_RenderClear(mainRenderer);
-
-	greeting = Text(mainRenderer, "Text/Greetings.png", 72, 341);
-	//SDL_RenderClear(mainRenderer);
-	SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
-
-	//greeting = Text(mainRenderer, "Text/Greetings1.png", 72, 341);
 	
 	if (greeting.getTexture() != nullptr)
 		SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
@@ -117,57 +112,31 @@ void Game::handleEvents()
 			{
 			case SDLK_l:
 				greeting = Text(mainRenderer, "Text/Greetings1.png", 72, 341);
-				SDL_RenderClear(mainRenderer);
-				SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
-				std::cout << "Welcome on board, Sir! (Press E to continue) \n";
+				break;
 
-			}
-
-			switch (event.key.keysym.sym)
-			{
 			case SDLK_e:
 				greeting = Text(mainRenderer, "Text/Greetings2.png", 72, 341);
-				SDL_RenderClear(mainRenderer);
-				SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
-				std::cout << "Welcome on board, Sir! (Press E to continue) \n";
-			}
+				break;
 
-			switch (event.key.keysym.sym)
-			{
 			case SDLK_t:
 				greeting = Text(mainRenderer, "Text/Greetings3.png", 72, 341);
-				SDL_RenderClear(mainRenderer);
-				SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
-				std::cout << "Welcome on board, Sir! (Press E to continue) \n";
-			}
+				break;
 
-			switch (event.key.keysym.sym)
-			{
 			case SDLK_s:
 				greeting = Text(mainRenderer, "Text/Greetings4.png", 72, 341);
-				SDL_RenderClear(mainRenderer);
-				SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
-				std::cout << "Welcome on board, Sir! (Press E to continue) \n";
-			}
+				break;
 
-			switch (event.key.keysym.sym)
-			{
 			case SDLK_g:
 				greeting = Text(mainRenderer, "Text/Greetings5.png", 72, 341);
-				SDL_RenderClear(mainRenderer);
-				SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
-				std::cout << "Welcome on board, Sir! (Press E to continue) \n";
-			}
+				break;
 
-			switch (event.key.keysym.sym)
-			{
 			case SDLK_o:
 				greeting = Text(mainRenderer, "Text/Greetings6.png", 72, 341);
-				SDL_RenderClear(mainRenderer);
-				SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
-				std::cout << "Welcome on board, Sir! (Press E to continue) \n";
+				break;
 			}
 
+			SDL_RenderClear(mainRenderer);
+			SDL_RenderCopy(mainRenderer, greeting.getTexture(), NULL, &textDestination);
 		default:
 			break;
 		}
@@ -186,5 +155,6 @@ void Game::clean()
 	std::cout << "Cleaning SDL \n";
 	SDL_DestroyWindow(mainWindow);
 	SDL_DestroyRenderer(mainRenderer);
+	IMG_Quit();
 	SDL_Quit();
 }

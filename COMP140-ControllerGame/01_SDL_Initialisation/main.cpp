@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SDL.h"
 #include "Game.h"
+#include "Text.h"
 #include <iostream>
 
 
@@ -14,8 +15,6 @@ int main(int argc, char* argv[])
 
 	// initialise the game
 	game->init("SDL Serial", 100, 100, 640, 480, 0);
-
-	std::cout << "Press L to start... \n";
 
 	// create a game loop
 	while (game->running()) {

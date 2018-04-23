@@ -19,4 +19,7 @@ public:
 private:
 	serial::Serial* mySerial;
 	bool connected = false;
+
+	Text success;
+	SDL_Rect textDestination;
 };
