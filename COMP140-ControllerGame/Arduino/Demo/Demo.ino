@@ -3,8 +3,8 @@
 #include <Wire.h>
 #include <SPI.h>
 #include <FastLED.h>
-#include <Adafruit_NeoPixel.h>
 
+#include <Adafruit_NeoPixel.h>
 #include <Adafruit_LIS3DH.h>
 #include <Adafruit_Sensor.h>
 
@@ -82,8 +82,8 @@ void loop() {
    
     delay(500);
 
-    expectedX = random(-6000, 6000);  // change  to the range of (-5000, 5001)
-    expectedY = random(-6000, 6000);  // change  to the range of (-5000, 5001)
+    expectedX = random(-5000, 5001);  // change  to the range of (-5000, 5001)
+    expectedY = random(-5000, 5001);  // change  to the range of (-5000, 5001)
     
   }
 

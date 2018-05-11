@@ -1,7 +1,6 @@
 #pragma once
 
 #include <serial\serial.h>
-#include "Text.h"
 #include <string>
 #include <random>
 
@@ -19,7 +18,4 @@ public:
 private:
 	serial::Serial* mySerial;
 	bool connected = false;
-
-	Text success;
-	SDL_Rect textDestination;
 };
